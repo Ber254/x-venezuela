@@ -106,8 +106,8 @@ export default async function Home() {
             <Image
               src="/logo-parcuve-sin-fronteras.png"
               alt="Parcuve Sin Fronteras"
-              width={48}
-              height={48}
+              width={120}
+              height={120}
               style={{ objectFit: 'contain' }}
             />
           </div>
@@ -124,17 +124,6 @@ export default async function Home() {
       {/* ── HERO ───────────────────────────────────────────── */}
       <section style={{ background: 'linear-gradient(135deg, var(--psf-navy) 0%, #3D4A9E 60%, #6B5B9E 100%)', color: '#fff', padding: '4rem 1.5rem 3.5rem', textAlign: 'center' }}>
         <div style={{ maxWidth: 640, margin: '0 auto' }}>
-
-          {/* Logo grande en el hero */}
-          <div style={{ marginBottom: '1.5rem' }}>
-            <Image
-              src="/logo-parcuve-sin-fronteras.png"
-              alt="Parcuve Sin Fronteras"
-              width={160}
-              height={160}
-              style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: .92 }}
-            />
-          </div>
 
           {/* Banderas */}
           <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginBottom: '1.5rem' }}>
