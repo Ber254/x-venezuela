@@ -21,7 +21,7 @@ export default function Home() {
       const { error: err } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${location.origin}/api/auth/callback`,
+          emailRedirectTo: `${location.origin}/api/auth/callback?next=/reservar`,
           data: { full_name: name || email.split('@')[0], role: 'user' },
         },
       })
@@ -94,7 +94,7 @@ export default function Home() {
           </div>
           {error && <div className="err"><i className="ti ti-alert-circle" /> {error}</div>}
           <button className="btn btn-p btn-full" type="submit" disabled={loading} style={{ marginTop: 4 }}>
-            {loading ? 'Enviando…' : <><i className="ti ti-send" /> Enviar enlace de acceso</>}
+            {loading ? 'Enviando…' : <><i className="ti ti-search" /> Busca un turno disponible</>}
           </button>
         </form>
 
