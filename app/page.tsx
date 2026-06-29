@@ -58,7 +58,8 @@ async function getPublicSlots() {
 const FLAGS = ['🇪🇸','🇦🇷','🇨🇷','🇨🇱','🇵🇪','🇲🇽']
 
 export default async function Home() {
-  const slots = await getPublicSlots()
+  let slots = {}
+  try { slots = await getPublicSlots() } catch { slots = {} }
 
   return (
     <div style={{ minHeight: '100vh', background: '#F8F7FC', fontFamily: "'Inter', sans-serif" }}>
