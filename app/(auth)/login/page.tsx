@@ -1,25 +1,23 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 
 export default function LoginPage() {
-  const [email, setEmail]   = useState('')
-  const [name, setName]     = useState('')
-  const [sent, setSent]     = useState(false)
-  const [error, setError]   = useState('')
+  const [email, setEmail]     = useState('')
+  const [name, setName]       = useState('')
+  const [sent, setSent]       = useState(false)
+  const [error, setError]     = useState('')
   const [loading, setLoading] = useState(false)
-
   const supabase = createClient()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
     if (!email.includes('@')) { setError('Ingresá un correo válido'); return }
-
     setLoading(true)
     try {
-      // Store name in user_metadata for profile creation trigger
       const { error: err } = await supabase.auth.signInWithOtp({
         email,
         options: {
@@ -38,75 +36,136 @@ export default function LoginPage() {
 
   if (sent) {
     return (
-      <div className="screen">
-        <div className="login-card" style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: 48, marginBottom: '1rem' }}>📬</div>
-          <h2 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>Revisá tu correo</h2>
-          <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.6 }}>
+      <div style={S.screen}>
+        <div style={S.card}>
+          <div style={{ fontSize: 48, marginBottom: '1rem', textAlign: 'center' }}>📬</div>
+          <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8, textAlign: 'center' }}>Revisá tu correo</h2>
+          <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.7, textAlign: 'center' }}>
             Te enviamos un enlace mágico a <strong>{email}</strong>.<br />
-            Hacé clic en el enlace para ingresar. No necesitás contraseña.
+            Hacé clic en el enlace para ingresar sin contraseña.
           </p>
           <button className="btn btn-full" style={{ marginTop: '1.5rem' }} onClick={() => setSent(false)}>
             <i className="ti ti-arrow-left" /> Volver
           </button>
         </div>
+        <style>{styles}</style>
       </div>
     )
   }
 
   return (
-    <div className="screen">
-      <div className="login-card">
-        <div className="login-logo">
-          <div className="logo-box"><i className="ti ti-heart-handshake" /></div>
-          <div>
-            <div className="appname">Parcuve <span style={{ color: 'var(--green)' }}>Sin Fronteras</span></div>
-            <div style={{ fontSize: 11, color: 'var(--text3)' }}>Asistencia psicológica gratuita</div>
+    <div style={S.screen}>
+      {/* Banner oficial */}
+      <a href="https://parcuve.com/" target="_blank" rel="noopener noreferrer" style={S.banner}>
+        <i className="ti ti-world" style={{ fontSize: 13 }} />
+        parcuve.com — Sitio oficial
+        <i className="ti ti-arrow-up-right" style={{ fontSize: 12, opacity: .7 }} />
+      </a>
+
+      <div style={S.card}>
+        {/* Logo */}
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <Image
+            src="https://parcuve.com/wp-content/uploads/2026/04/logo-academia-parcuve-1.png"
+            alt="Parcuve"
+            width={72}
+            height={72}
+            style={{ objectFit: 'contain', marginBottom: 12 }}
+            unoptimized
+          />
+          <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--text)', letterSpacing: '-.02em', lineHeight: 1.1 }}>
+            Parcuve <span style={{ fontWeight: 300 }}>Sin Fronteras</span>
+          </div>
+          <div style={{ fontSize: 11, color: 'var(--text3)', marginTop: 4, textTransform: 'uppercase', letterSpacing: '.1em' }}>
+            Atención psicológica gratuita
           </div>
         </div>
 
-        <div style={{ fontSize: 17, fontWeight: 600, marginBottom: 5 }}>Reservá tu turno</div>
-        <div style={{ fontSize: 12, color: 'var(--text2)', marginBottom: '1.5rem', lineHeight: 1.6 }}>
-          Ingresá tu correo para acceder. Te enviaremos un enlace de ingreso automático.
+        <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 5 }}>Reservá tu turno</div>
+        <div style={{ fontSize: 12, color: 'var(--text2)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
+          Ingresá tu correo para acceder. Te enviaremos un enlace de ingreso automático — sin contraseña.
         </div>
 
         <form onSubmit={handleSubmit}>
-          <input
-            className="ff"
-            type="email"
-            placeholder="tucorreo@ejemplo.com"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-          />
-          <input
-            className="ff"
-            type="text"
-            placeholder="Tu nombre (solo la primera vez)"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
+          <div className="fg">
+            <label>Correo electrónico</label>
+            <input
+              type="email"
+              placeholder="tucorreo@ejemplo.com"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="fg">
+            <label>Tu nombre <span style={{ fontWeight: 400, color: 'var(--text3)' }}>(solo la primera vez)</span></label>
+            <input
+              type="text"
+              placeholder="Nombre y apellido"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+          </div>
           {error && <div className="err"><i className="ti ti-alert-circle" /> {error}</div>}
-          <button className="btn btn-p btn-full" type="submit" disabled={loading}>
+          <button className="btn btn-p btn-full" type="submit" disabled={loading} style={{ marginTop: 4 }}>
             {loading ? 'Enviando…' : <><i className="ti ti-send" /> Enviar enlace de acceso</>}
           </button>
         </form>
 
-        <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '0.5px solid var(--border)', textAlign: 'center' }}>
-          <Link href="/acceso-profesional" style={{ fontSize: 11, color: 'var(--text3)', textDecoration: 'underline' }}>
-            Acceso profesional
+        <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
+          <Link href="/acceso-profesional" style={{ fontSize: 11, color: 'var(--text3)', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+            Acceso profesional (Admin · Psicólogos)
           </Link>
         </div>
       </div>
 
-      <style>{`
-        .screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:1.5rem}
-        .login-card{background:var(--surface);border-radius:18px;border:0.5px solid var(--border);padding:2.5rem;width:380px;max-width:100%;box-shadow:0 4px 24px rgba(0,0,0,.08)}
-        .login-logo{display:flex;align-items:center;gap:10px;margin-bottom:2rem}
-        .login-logo .logo-box{width:36px;height:36px;border-radius:10px}
-        .appname{font-size:15px;font-weight:600;color:var(--text)}
-        .ff{margin-bottom:8px}
-      `}</style>
+      {/* Footer */}
+      <div style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: 11, color: 'var(--text3)' }}>
+        <a href="https://parcuve.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text3)', textDecoration: 'none' }}>
+          © {new Date().getFullYear()} Parcuve · parcuve.com
+        </a>
+      </div>
+
+      <style>{styles}</style>
     </div>
   )
 }
+
+const S: Record<string, React.CSSProperties> = {
+  screen: {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'var(--bg)',
+    padding: '1.5rem',
+  },
+  card: {
+    background: 'var(--surface)',
+    borderRadius: 16,
+    border: '1px solid var(--border)',
+    padding: '2.5rem',
+    width: 400,
+    maxWidth: '100%',
+    boxShadow: '0 4px 32px rgba(0,0,0,.07)',
+  },
+  banner: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 6,
+    background: 'var(--primary)',
+    color: '#fff',
+    borderRadius: 20,
+    padding: '5px 14px',
+    fontSize: 11,
+    fontWeight: 500,
+    textDecoration: 'none',
+    marginBottom: '1.5rem',
+    letterSpacing: '.02em',
+  },
+}
+
+const styles = `
+  .fg { margin-bottom: 12px; }
+`

@@ -1,6 +1,15 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'parcuve.com',
+        pathname: '/wp-content/uploads/**',
+      },
+    ],
+  },
   async headers() {
     return [
       {
@@ -15,9 +24,9 @@ const nextConfig: NextConfig = {
             value: [
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-              "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
-              "font-src 'self' https://cdn.jsdelivr.net",
-              "img-src 'self' data: https:",
+              "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com",
+              "font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com",
+              "img-src 'self' data: https: blob:",
               "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.googleapis.com",
             ].join('; '),
           },

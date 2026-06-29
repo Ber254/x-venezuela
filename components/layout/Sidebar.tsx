@@ -27,7 +27,7 @@ export default function Sidebar({ role }: { role: Role }) {
   const visible  = NAV.filter(n => n.roles.includes(role))
 
   return (
-    <div className="sidebar">
+    <div className="sidebar" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <div style={{ padding: '0 6px' }}>
         <div className="nav-lbl">Menú</div>
         {visible.map(n => (
@@ -40,6 +40,26 @@ export default function Sidebar({ role }: { role: Role }) {
             {n.label}
           </Link>
         ))}
+      </div>
+
+      {/* Link al sitio oficial abajo del sidebar */}
+      <div style={{ padding: '1rem 14px', borderTop: '1px solid var(--border)' }}>
+        <a
+          href="https://parcuve.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 8,
+            fontSize: 11, color: 'var(--text3)', textDecoration: 'none',
+            padding: '6px 8px', borderRadius: 6, transition: '.12s',
+          }}
+          onMouseEnter={e => (e.currentTarget.style.background = 'var(--surface2)')}
+          onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+        >
+          <i className="ti ti-world" style={{ fontSize: 14 }} />
+          <span>parcuve.com</span>
+          <i className="ti ti-arrow-up-right" style={{ fontSize: 11, marginLeft: 'auto', opacity: .5 }} />
+        </a>
       </div>
     </div>
   )
