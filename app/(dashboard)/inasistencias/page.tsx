@@ -29,10 +29,17 @@ export default async function InasistenciasPage() {
       .order('date', { ascending: false }),
   ])
 
+  // Supabase returns joined relation as array; cast to the local type the client expects
+  type BookingRow = { id: string; date: string; hour: string; patient_id: string; patient: { full_name: string; email: string } }
+  const bookings = (bookingsRes.data ?? []).map(b => ({
+    ...b,
+    patient: Array.isArray(b.patient) ? b.patient[0] : b.patient,
+  })) as BookingRow[]
+
   return (
     <InasistenciasClient
       psicId={profile.id}
-      bookings={bookingsRes.data ?? []}
+      bookings={bookings}
       absences={absencesRes.data ?? []}
     />
   )
