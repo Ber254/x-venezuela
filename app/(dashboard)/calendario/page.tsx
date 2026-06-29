@@ -17,7 +17,7 @@ export default async function CalendarioPage() {
   const [bookingsRes, availRes, psicsRes] = await Promise.all([
     supabase.from('bookings').select('*').gte('date', from.toISOString().split('T')[0]).lte('date', to.toISOString().split('T')[0]),
     supabase.from('availability').select('*'),
-    supabase.from('profiles').select('id,full_name,color,specialty,active,email').eq('role','psic'),
+    supabase.from('profiles').select('id,full_name,color,specialty,active,email,role,created_at').eq('role','psic'),
   ])
 
   return (

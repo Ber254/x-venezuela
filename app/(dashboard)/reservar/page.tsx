@@ -19,7 +19,7 @@ export default async function ReservarPage() {
   const weekEnd   = getWeekEnd(from)
 
   const [psicsRes, availRes, bookingsRes, myWeekRes] = await Promise.all([
-    supabase.from('profiles').select('id,full_name,specialty,color,email,active').eq('role','psic').eq('active', true),
+    supabase.from('profiles').select('id,full_name,specialty,color,email,active,role,created_at').eq('role','psic').eq('active', true),
     supabase.from('availability').select('*').lte('valid_from', to).gte('valid_until', from),
     supabase.from('bookings').select('id,date,hour,psic_id,patient_id,meet_link').gte('date', from).lte('date', to),
     supabase.from('bookings').select('id', { count: 'exact', head: true }).eq('patient_id', user.id).gte('date', weekStart).lte('date', weekEnd),

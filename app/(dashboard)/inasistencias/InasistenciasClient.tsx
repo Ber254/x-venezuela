@@ -85,10 +85,10 @@ export default function InasistenciasClient({ psicId, bookings, absences: initia
           const cnt    = patientCounts[b.patient_id] ?? 0
           return (
             <div key={b.id} style={{
-              background: 'var(--surface)', border: `0.5px solid ${absent ? '#F09595' : 'var(--border)'}`,
+              background: absent ? '#FCEBEB' : 'var(--surface)',
+              border: `0.5px solid ${absent ? '#F09595' : 'var(--border)'}`,
               borderRadius: 12, padding: '.875rem 1.1rem', marginBottom: 8,
               display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
-              background: absent ? '#FCEBEB' : 'var(--surface)',
             }}>
               <div>
                 <div style={{ fontSize: 12, fontWeight: 600 }}>{dateLabel(b.date)}</div>
