@@ -1,0 +1,18 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "devCommand": "next dev",
+  "installCommand": "npm install",
+  "regions": ["iad1"],
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "@supabase_url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase_anon_key",
+    "SUPABASE_SERVICE_ROLE_KEY": "@supabase_service_role_key",
+    "GOOGLE_SERVICE_ACCOUNT_EMAIL": "@google_sa_email",
+    "GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY": "@google_sa_private_key",
+    "GOOGLE_CALENDAR_DELEGATION_EMAIL": "@google_calendar_email",
+    "RESEND_API_KEY": "@resend_api_key",
+    "RESEND_FROM": "@resend_from",
+    "NEXT_PUBLIC_APP_URL": "@app_url"
+  }
+}
