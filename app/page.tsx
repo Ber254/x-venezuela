@@ -132,10 +132,14 @@ export default async function Home() {
             ))}
           </div>
 
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,.15)', borderRadius: 20, padding: '5px 16px', fontSize: 11, fontWeight: 600, marginBottom: '1.25rem', letterSpacing: '.06em', textTransform: 'uppercase' }}>
+          <a href="#turnos" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,.15)', borderRadius: 20, padding: '5px 16px', fontSize: 11, fontWeight: 600, marginBottom: '1.25rem', letterSpacing: '.06em', textTransform: 'uppercase', textDecoration: 'none', color: '#fff', cursor: 'pointer', transition: 'background .15s' }}
+            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.25)')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,.15)')}
+          >
             <i className="ti ti-heart" style={{ fontSize: 12 }} />
             Atención gratuita · Contención a Venezuela · Sin fronteras
-          </div>
+            <i className="ti ti-arrow-down" style={{ fontSize: 11, opacity: .7 }} />
+          </a>
 
         </div>
       </section>
@@ -144,25 +148,38 @@ export default async function Home() {
       <section style={{ background: '#fff', borderBottom: '1px solid var(--psf-border)' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', padding: '2rem 1.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
           {[
-            { n: '1', icon: 'ti-calendar', title: 'Elegí un turno', desc: 'Seleccioná el día y horario que más te convenga.' },
-            { n: '2', icon: 'ti-mail', title: 'Confirmá por email', desc: 'Te enviamos un enlace mágico — sin contraseña.' },
-            { n: '3', icon: 'ti-video', title: 'Entrá al Meet', desc: 'Tu sesión online, completamente confidencial.' },
-          ].map(({ n, icon, title, desc }) => (
-            <div key={n} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-              <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--psf-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <i className={`ti ${icon}`} style={{ fontSize: 16, color: 'var(--psf-navy)' }} />
-              </div>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--psf-navy)', marginBottom: 3 }}>{title}</div>
-                <div style={{ fontSize: 12, color: '#6B6B62', lineHeight: 1.5 }}>{desc}</div>
-              </div>
-            </div>
+            { n: '1', icon: 'ti-calendar', title: 'Elegí un turno', desc: 'Seleccioná el día y horario que más te convenga.', cta: true },
+            { n: '2', icon: 'ti-mail', title: 'Confirmá por email', desc: 'Te enviamos un enlace mágico — sin contraseña.', cta: false },
+            { n: '3', icon: 'ti-video', title: 'Entrá al Meet', desc: 'Tu sesión online, completamente confidencial.', cta: false },
+          ].map(({ n, icon, title, desc, cta }) => (
+            cta
+              ? <a key={n} href="#turnos" style={{ display: 'flex', gap: 14, alignItems: 'flex-start', textDecoration: 'none', cursor: 'pointer', padding: '10px', borderRadius: 10, border: '1.5px solid var(--psf-navy)', transition: 'all .15s' }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--psf-light)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.transform = 'none' }}
+                >
+                  <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--psf-navy)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <i className={`ti ${icon}`} style={{ fontSize: 16, color: '#fff' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--psf-navy)', marginBottom: 3 }}>{title} →</div>
+                    <div style={{ fontSize: 12, color: '#6B6B62', lineHeight: 1.5 }}>{desc}</div>
+                  </div>
+                </a>
+              : <div key={n} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+                  <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--psf-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <i className={`ti ${icon}`} style={{ fontSize: 16, color: 'var(--psf-navy)' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--psf-navy)', marginBottom: 3 }}>{title}</div>
+                    <div style={{ fontSize: 12, color: '#6B6B62', lineHeight: 1.5 }}>{desc}</div>
+                  </div>
+                </div>
           ))}
         </div>
       </section>
 
       {/* ── BOOKING ────────────────────────────────────────── */}
-      <section style={{ maxWidth: 1100, margin: '0 auto', padding: '2.5rem 1.5rem 4rem' }}>
+      <section id="turnos" style={{ maxWidth: 1100, margin: '0 auto', padding: '2.5rem 1.5rem 4rem' }}>
         <div style={{ marginBottom: '1.75rem' }}>
           <h2 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-.01em', marginBottom: 6, color: 'var(--psf-navy)' }}>
             Turnos disponibles
