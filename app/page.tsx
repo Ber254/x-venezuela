@@ -142,10 +142,6 @@ export default async function Home() {
             <span style={{ fontWeight: 300, fontStyle: 'italic', color: '#E8C8DA' }}>es un derecho</span>
           </h1>
 
-          <p style={{ fontSize: 15, opacity: .85, lineHeight: 1.75, marginBottom: '2rem', maxWidth: 480, margin: '0 auto 2rem' }}>
-            Reservá una sesión gratuita con nuestros psicólogos. Sin lista de espera, sin burocracia.
-          </p>
-
         </div>
       </section>
 
