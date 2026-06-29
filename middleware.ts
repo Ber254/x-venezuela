@@ -3,12 +3,16 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 const PUBLIC_PATHS = ['/', '/login', '/acceso-profesional', '/api/auth', '/api/slots', '/confirmar-turno']
 
+function clean(s: string | undefined) {
+  return (s ?? '').replace(/^﻿/, '').replace(/[^\x00-\xFF]/g, '').trim()
+}
+
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    clean(process.env.NEXT_PUBLIC_SUPABASE_URL),
+    clean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
     {
       cookies: {
         getAll() { return request.cookies.getAll() },

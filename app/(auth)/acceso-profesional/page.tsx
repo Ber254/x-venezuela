@@ -74,7 +74,7 @@ export default function AccesoProfesionalPage() {
           </button>
         </form>
 
-        <Link href="/login" className="btn btn-full" style={{ marginTop: 10, justifyContent: 'center' }}>
+        <Link href="/" className="btn btn-full" style={{ marginTop: 10, justifyContent: 'center' }}>
           <i className="ti ti-arrow-left" /> Volver al inicio
         </Link>
       </div>
