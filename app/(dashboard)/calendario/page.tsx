@@ -5,7 +5,7 @@ import AdminCalendar from '@/components/calendar/AdminCalendar'
 export default async function CalendarioPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user) redirect('/acceso-profesional')
 
   const { data: profile } = await supabase.from('profiles').select('role,id').eq('id', user.id).single()
   if (!profile || profile.role === 'user') redirect('/reservar')

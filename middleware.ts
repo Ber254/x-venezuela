@@ -38,12 +38,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
-  if (user && (path === '/login' || path === '/acceso-profesional')) {
-    const dashboardUrl = request.nextUrl.clone()
-    dashboardUrl.pathname = '/calendario'
-    return NextResponse.redirect(dashboardUrl)
-  }
-
   return supabaseResponse
 }
 
