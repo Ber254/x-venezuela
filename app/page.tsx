@@ -134,7 +134,7 @@ export default async function Home() {
 
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,.15)', borderRadius: 20, padding: '5px 16px', fontSize: 11, fontWeight: 600, marginBottom: '1.25rem', letterSpacing: '.06em', textTransform: 'uppercase' }}>
             <i className="ti ti-heart" style={{ fontSize: 12 }} />
-            Atención gratuita · Sin costo · Sin fronteras
+            Atención gratuita · Contención a Venezuela · Sin fronteras
           </div>
 
         </div>
