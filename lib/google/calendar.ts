@@ -40,7 +40,7 @@ export async function createMeetEvent({
       conferenceDataVersion: 1,
       sendUpdates: 'all',
       requestBody: {
-        summary: `Sesión psicológica — X Venezuela`,
+        summary: `Sesión psicológica — Parcuve Sin Fronteras`,
         description: [
           `Sesión de atención psicológica gratuita`,
           `Psicólogo/a: ${psicName}`,

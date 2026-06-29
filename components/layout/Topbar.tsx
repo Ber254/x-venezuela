@@ -25,7 +25,7 @@ export default function Topbar({ profile }: { profile: Profile }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
         <div className="logo-box"><i className="ti ti-heart-handshake" /></div>
         <span style={{ fontSize: 15, fontWeight: 600 }}>
-          X <span style={{ color: 'var(--green)' }}>Venezuela</span>
+          Parcuve <span style={{ color: 'var(--green)' }}>Sin Fronteras</span>
         </span>
         <span className={`role-chip ${cls}`}>{txt}</span>
       </div>

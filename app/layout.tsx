@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'X Venezuela — Atención Psicológica',
+  title: 'Parcuve Sin Fronteras — Atención Psicológica',
   description: 'Plataforma de atención psicológica gratuita para venezolanos',
 }
 

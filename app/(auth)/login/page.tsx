@@ -60,7 +60,7 @@ export default function LoginPage() {
         <div className="login-logo">
           <div className="logo-box"><i className="ti ti-heart-handshake" /></div>
           <div>
-            <div className="appname">X <span style={{ color: 'var(--green)' }}>Venezuela</span></div>
+            <div className="appname">Parcuve <span style={{ color: 'var(--green)' }}>Sin Fronteras</span></div>
             <div style={{ fontSize: 11, color: 'var(--text3)' }}>Asistencia psicológica gratuita</div>
           </div>
         </div>

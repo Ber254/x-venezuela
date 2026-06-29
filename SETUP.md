@@ -1,4 +1,4 @@
-# X-Venezuela — Guía de configuración
+# Parcuve Sin Fronteras — Guía de configuración
 
 ## 1. Supabase
 

@@ -1,5 +1,5 @@
 -- ============================================================
--- X-Venezuela — Supabase Schema
+-- Parcuve Sin Fronteras — Supabase Schema
 -- Run this in Supabase SQL Editor (Dashboard > SQL Editor)
 -- ============================================================
 

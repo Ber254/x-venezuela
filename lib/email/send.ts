@@ -19,7 +19,7 @@ export async function sendBookingConfirmation({
 
   const html = `
     <div style="font-family:sans-serif;max-width:500px;margin:0 auto">
-      <h2 style="color:#1D9E75">Turno confirmado — X Venezuela</h2>
+      <h2 style="color:#1D9E75">Turno confirmado — Parcuve Sin Fronteras</h2>
       <p>Hola <strong>${patientName}</strong>,</p>
       <p>Tu turno fue confirmado exitosamente.</p>
       <table style="border-collapse:collapse;width:100%;margin:16px 0">
@@ -62,7 +62,7 @@ export async function sendBookingCancellation({
   const hEnd = `${String(parseInt(hour) + 1).padStart(2, '0')}:00`
   const html = `
     <div style="font-family:sans-serif;max-width:500px;margin:0 auto">
-      <h2 style="color:#E24B4A">Turno cancelado — X Venezuela</h2>
+      <h2 style="color:#E24B4A">Turno cancelado — Parcuve Sin Fronteras</h2>
       <p>El turno del <strong>${date}</strong> de <strong>${hour}–${hEnd}</strong> fue cancelado.</p>
     </div>`
 
