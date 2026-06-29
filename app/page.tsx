@@ -3,7 +3,6 @@ import LandingBooking from '@/components/LandingBooking'
 import { createServiceClient } from '@/lib/supabase/server'
 import { slotsFromShift } from '@/lib/utils'
 
-// Revalidar cada 60 segundos
 export const revalidate = 60
 
 async function getPublicSlots() {
@@ -41,7 +40,7 @@ async function getPublicSlots() {
           slotsFromShift(sh.start, sh.end).forEach(hour => {
             if (!bookings.find(b => b.date === ds && b.psic_id === psic.id && b.hour === hour)) {
               if (!slotMap[hour]) slotMap[hour] = []
-              slotMap[hour].push({ id: psic.id, name: psic.full_name, specialty: psic.specialty ?? '', color: psic.color ?? '#1A1A18' })
+              slotMap[hour].push({ id: psic.id, name: psic.full_name, specialty: psic.specialty ?? '', color: psic.color ?? '#2D3580' })
             }
           })
         })
@@ -56,48 +55,65 @@ async function getPublicSlots() {
   return result
 }
 
+const FLAGS = ['🇪🇸','🇦🇷','🇨🇷','🇨🇱','🇵🇪','🇲🇽']
+
 export default async function Home() {
   const slots = await getPublicSlots()
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg)', fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ minHeight: '100vh', background: '#F8F7FC', fontFamily: "'Inter', sans-serif" }}>
+
+      <style>{`
+        :root {
+          --psf-navy: #2D3580;
+          --psf-rose: #C17A9F;
+          --psf-light: #F0EEF8;
+          --psf-border: rgba(45,53,128,.10);
+        }
+        .psf-card-slot {
+          background: #fff;
+          border: 1.5px solid var(--psf-border);
+          border-radius: 12px;
+          padding: 14px 16px;
+          cursor: pointer;
+          transition: all .15s;
+          font-family: 'Inter', sans-serif;
+          text-align: left;
+        }
+        .psf-card-slot:hover {
+          border-color: var(--psf-navy);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(45,53,128,.12);
+        }
+      `}</style>
 
       {/* ── HEADER ─────────────────────────────────────────── */}
-      <header style={{ background: '#fff', borderBottom: '1px solid var(--border)', position: 'sticky', top: 0, zIndex: 100 }}>
+      <header style={{ background: '#fff', borderBottom: '1px solid var(--psf-border)', position: 'sticky', top: 0, zIndex: 100, boxShadow: '0 2px 12px rgba(45,53,128,.06)' }}>
         {/* Banner oficial */}
         <a
           href="https://parcuve.com/"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'var(--primary)', color: '#fff', padding: '6px 1rem', fontSize: 11, fontWeight: 500, textDecoration: 'none', letterSpacing: '.02em' }}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'var(--psf-navy)', color: '#fff', padding: '6px 1rem', fontSize: 11, fontWeight: 500, textDecoration: 'none', letterSpacing: '.03em' }}
         >
           <i className="ti ti-world" style={{ fontSize: 13 }} />
           Conocé la web oficial de Parcuve en parcuve.com
           <i className="ti ti-arrow-up-right" style={{ fontSize: 11, opacity: .7 }} />
         </a>
 
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 1.5rem', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 1.5rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <Image
-              src="https://parcuve.com/wp-content/uploads/2026/04/logo-academia-parcuve-1.png"
-              alt="Parcuve"
-              width={40}
-              height={40}
+              src="/logo-parcuve-sin-fronteras.png"
+              alt="Parcuve Sin Fronteras"
+              width={48}
+              height={48}
               style={{ objectFit: 'contain' }}
-              unoptimized
             />
-            <div>
-              <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-.02em', lineHeight: 1.1 }}>
-                Parcuve <span style={{ fontWeight: 300 }}>Sin Fronteras</span>
-              </div>
-              <div style={{ fontSize: 10, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: '.08em' }}>
-                Atención psicológica gratuita
-              </div>
-            </div>
           </div>
           <a
             href="/acceso-profesional"
-            style={{ fontSize: 12, color: 'var(--text3)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}
+            style={{ fontSize: 12, color: '#9A998F', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4, padding: '6px 12px', borderRadius: 6, border: '1px solid #E0DFDA', transition: '.12s' }}
           >
             <i className="ti ti-lock" style={{ fontSize: 13 }} />
             Acceso profesional
@@ -106,26 +122,48 @@ export default async function Home() {
       </header>
 
       {/* ── HERO ───────────────────────────────────────────── */}
-      <section style={{ background: 'var(--primary)', color: '#fff', padding: '3.5rem 1.5rem 3rem', textAlign: 'center' }}>
-        <div style={{ maxWidth: 600, margin: '0 auto' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,.12)', borderRadius: 20, padding: '4px 14px', fontSize: 11, fontWeight: 500, marginBottom: '1.25rem', letterSpacing: '.04em', textTransform: 'uppercase' }}>
+      <section style={{ background: 'linear-gradient(135deg, var(--psf-navy) 0%, #3D4A9E 60%, #6B5B9E 100%)', color: '#fff', padding: '4rem 1.5rem 3.5rem', textAlign: 'center' }}>
+        <div style={{ maxWidth: 640, margin: '0 auto' }}>
+
+          {/* Logo grande en el hero */}
+          <div style={{ marginBottom: '1.5rem' }}>
+            <Image
+              src="/logo-parcuve-sin-fronteras.png"
+              alt="Parcuve Sin Fronteras"
+              width={160}
+              height={160}
+              style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: .92 }}
+            />
+          </div>
+
+          {/* Banderas */}
+          <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginBottom: '1.5rem' }}>
+            {FLAGS.map(f => (
+              <span key={f} style={{ fontSize: 22 }}>{f}</span>
+            ))}
+          </div>
+
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,.15)', borderRadius: 20, padding: '5px 16px', fontSize: 11, fontWeight: 600, marginBottom: '1.25rem', letterSpacing: '.06em', textTransform: 'uppercase' }}>
             <i className="ti ti-heart" style={{ fontSize: 12 }} />
             Atención gratuita · Sin costo · Sin fronteras
           </div>
-          <h1 style={{ fontSize: 'clamp(26px, 5vw, 40px)', fontWeight: 700, lineHeight: 1.15, marginBottom: '1rem', letterSpacing: '-.02em' }}>
+
+          <h1 style={{ fontSize: 'clamp(28px, 5vw, 42px)', fontWeight: 700, lineHeight: 1.15, marginBottom: '1rem', letterSpacing: '-.02em' }}>
             Tu bienestar mental<br />
-            <span style={{ fontWeight: 300, fontStyle: 'italic' }}>es un derecho</span>
+            <span style={{ fontWeight: 300, fontStyle: 'italic', color: '#E8C8DA' }}>es un derecho</span>
           </h1>
-          <p style={{ fontSize: 15, opacity: .82, lineHeight: 1.7, marginBottom: '1.75rem' }}>
-            Reservá una sesión gratuita con nuestros psicólogos. Sin lista de espera, sin burocracia — elegí el horario que más te convenga.
+
+          <p style={{ fontSize: 15, opacity: .85, lineHeight: 1.75, marginBottom: '2rem', maxWidth: 480, margin: '0 auto 2rem' }}>
+            Reservá una sesión gratuita con nuestros psicólogos. Sin lista de espera, sin burocracia.
           </p>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+
+          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             {[
               { icon: 'ti-video', txt: 'Sesión por Google Meet' },
               { icon: 'ti-clock', txt: '1 hora por sesión' },
               { icon: 'ti-calendar-check', txt: 'Hasta 3 turnos por semana' },
             ].map(({ icon, txt }) => (
-              <div key={txt} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, opacity: .85 }}>
+              <div key={txt} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, background: 'rgba(255,255,255,.12)', borderRadius: 20, padding: '6px 14px' }}>
                 <i className={`ti ${icon}`} style={{ fontSize: 14 }} />
                 {txt}
               </div>
@@ -134,13 +172,34 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ── HOW IT WORKS ───────────────────────────────────── */}
+      <section style={{ background: '#fff', borderBottom: '1px solid var(--psf-border)' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', padding: '2rem 1.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+          {[
+            { n: '1', icon: 'ti-calendar', title: 'Elegí un turno', desc: 'Seleccioná el día y horario que más te convenga.' },
+            { n: '2', icon: 'ti-mail', title: 'Confirmá por email', desc: 'Te enviamos un enlace mágico — sin contraseña.' },
+            { n: '3', icon: 'ti-video', title: 'Entrá al Meet', desc: 'Tu sesión online, completamente confidencial.' },
+          ].map(({ n, icon, title, desc }) => (
+            <div key={n} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+              <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--psf-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <i className={`ti ${icon}`} style={{ fontSize: 16, color: 'var(--psf-navy)' }} />
+              </div>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--psf-navy)', marginBottom: 3 }}>{title}</div>
+                <div style={{ fontSize: 12, color: '#6B6B62', lineHeight: 1.5 }}>{desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ── BOOKING ────────────────────────────────────────── */}
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '2.5rem 1.5rem 4rem' }}>
         <div style={{ marginBottom: '1.75rem' }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-.01em', marginBottom: 6 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-.01em', marginBottom: 6, color: 'var(--psf-navy)' }}>
             Turnos disponibles
           </h2>
-          <p style={{ fontSize: 13, color: 'var(--text2)', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 13, color: '#6B6B62', lineHeight: 1.6 }}>
             Elegí día y horario. Al confirmar te pedimos tu correo para enviarte el enlace de la videollamada.
           </p>
         </div>
@@ -149,29 +208,26 @@ export default async function Home() {
       </section>
 
       {/* ── FOOTER ─────────────────────────────────────────── */}
-      <footer style={{ borderTop: '1px solid var(--border)', background: '#fff', padding: '1.5rem', textAlign: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
-          <Image
-            src="https://parcuve.com/wp-content/uploads/2026/04/logo-academia-parcuve-1.png"
-            alt="Parcuve"
-            width={24}
-            height={24}
-            style={{ objectFit: 'contain', opacity: .6 }}
-            unoptimized
-          />
-          <span style={{ fontSize: 12, color: 'var(--text3)' }}>
-            © {new Date().getFullYear()} Parcuve Sin Fronteras ·{' '}
-            <a href="https://parcuve.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text3)' }}>
-              parcuve.com
-            </a>
-          </span>
+      <footer style={{ borderTop: '1px solid var(--psf-border)', background: '#fff', padding: '2rem 1.5rem', textAlign: 'center' }}>
+        <Image
+          src="/logo-parcuve-sin-fronteras.png"
+          alt="Parcuve Sin Fronteras"
+          width={80}
+          height={80}
+          style={{ objectFit: 'contain', opacity: .7, marginBottom: 8 }}
+        />
+        <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginBottom: 12 }}>
+          {FLAGS.map(f => <span key={f} style={{ fontSize: 16 }}>{f}</span>)}
+        </div>
+        <div style={{ fontSize: 12, color: '#9A998F' }}>
+          © {new Date().getFullYear()} Parcuve Sin Fronteras ·{' '}
+          <a href="https://parcuve.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#9A998F' }}>
+            parcuve.com
+          </a>
         </div>
       </footer>
 
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"
-      />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
     </div>
   )
 }
