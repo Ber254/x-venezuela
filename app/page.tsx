@@ -86,6 +86,21 @@ export default async function Home() {
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(45,53,128,.12);
         }
+        .psf-badge-cta {
+          display: inline-flex; align-items: center; gap: 6px;
+          background: rgba(255,255,255,.15); border-radius: 20px;
+          padding: 5px 16px; font-size: 11px; font-weight: 600;
+          margin-bottom: 1.25rem; letter-spacing: .06em; text-transform: uppercase;
+          text-decoration: none; color: #fff; cursor: pointer; transition: background .15s;
+        }
+        .psf-badge-cta:hover { background: rgba(255,255,255,.28); }
+        .psf-step-cta {
+          display: flex; gap: 14px; align-items: flex-start;
+          text-decoration: none; cursor: pointer; padding: 10px;
+          border-radius: 10px; border: 1.5px solid var(--psf-navy);
+          transition: all .15s; background: transparent;
+        }
+        .psf-step-cta:hover { background: var(--psf-light); transform: translateY(-2px); }
       `}</style>
 
       {/* ── HEADER ─────────────────────────────────────────── */}
@@ -133,10 +148,7 @@ export default async function Home() {
             ))}
           </div>
 
-          <a href="#turnos" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,.15)', borderRadius: 20, padding: '5px 16px', fontSize: 11, fontWeight: 600, marginBottom: '1.25rem', letterSpacing: '.06em', textTransform: 'uppercase', textDecoration: 'none', color: '#fff', cursor: 'pointer', transition: 'background .15s' }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,.25)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,.15)')}
-          >
+          <a href="#turnos" className="psf-badge-cta">
             <i className="ti ti-heart" style={{ fontSize: 12 }} />
             Atención gratuita · Contención a Venezuela · Sin fronteras
             <i className="ti ti-arrow-down" style={{ fontSize: 11, opacity: .7 }} />
@@ -154,10 +166,7 @@ export default async function Home() {
             { n: '3', icon: 'ti-video', title: 'Entrá al Meet', desc: 'Tu sesión online, completamente confidencial.', cta: false },
           ].map(({ n, icon, title, desc, cta }) => (
             cta
-              ? <a key={n} href="#turnos" style={{ display: 'flex', gap: 14, alignItems: 'flex-start', textDecoration: 'none', cursor: 'pointer', padding: '10px', borderRadius: 10, border: '1.5px solid var(--psf-navy)', transition: 'all .15s' }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--psf-light)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.transform = 'none' }}
-                >
+              ? <a key={n} href="#turnos" className="psf-step-cta">
                   <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--psf-navy)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <i className={`ti ${icon}`} style={{ fontSize: 16, color: '#fff' }} />
                   </div>
