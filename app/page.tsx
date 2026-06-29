@@ -146,18 +146,6 @@ export default async function Home() {
             Reservá una sesión gratuita con nuestros psicólogos. Sin lista de espera, sin burocracia.
           </p>
 
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            {[
-              { icon: 'ti-video', txt: 'Sesión por Google Meet' },
-              { icon: 'ti-clock', txt: '1 hora por sesión' },
-              { icon: 'ti-calendar-check', txt: 'Hasta 3 turnos por semana' },
-            ].map(({ icon, txt }) => (
-              <div key={txt} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, background: 'rgba(255,255,255,.12)', borderRadius: 20, padding: '6px 14px' }}>
-                <i className={`ti ${icon}`} style={{ fontSize: 14 }} />
-                {txt}
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
