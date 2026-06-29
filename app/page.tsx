@@ -137,11 +137,6 @@ export default async function Home() {
             Atención gratuita · Sin costo · Sin fronteras
           </div>
 
-          <h1 style={{ fontSize: 'clamp(28px, 5vw, 42px)', fontWeight: 700, lineHeight: 1.15, marginBottom: '1rem', letterSpacing: '-.02em' }}>
-            Tu bienestar mental<br />
-            <span style={{ fontWeight: 300, fontStyle: 'italic', color: '#E8C8DA' }}>es un derecho</span>
-          </h1>
-
         </div>
       </section>
 
