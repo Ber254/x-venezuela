@@ -1,7 +1,7 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-const FROM   = process.env.RESEND_FROM ?? 'noreply@x-venezuela.org'
+function getResend() { return new Resend(process.env.RESEND_API_KEY ?? 'placeholder') }
+const FROM = process.env.RESEND_FROM ?? 'noreply@parcuve.com'
 
 export async function sendBookingConfirmation({
   patientEmail, patientName,
@@ -32,13 +32,13 @@ export async function sendBookingConfirmation({
     </div>`
 
   await Promise.all([
-    resend.emails.send({
+    getResend().emails.send({
       from: FROM,
       to: patientEmail,
       subject: `Turno confirmado — ${date} ${hour}–${hEnd}`,
       html,
     }),
-    resend.emails.send({
+    getResend().emails.send({
       from: FROM,
       to: psicEmail,
       subject: `Nuevo turno — ${date} ${hour}–${hEnd}`,
@@ -67,7 +67,7 @@ export async function sendBookingCancellation({
     </div>`
 
   await Promise.all([
-    resend.emails.send({ from: FROM, to: patientEmail, subject: `Turno cancelado — ${date}`, html }),
-    resend.emails.send({ from: FROM, to: psicEmail,    subject: `Turno cancelado — ${date}`, html }),
+    getResend().emails.send({ from: FROM, to: patientEmail, subject: `Turno cancelado — ${date}`, html }),
+    getResend().emails.send({ from: FROM, to: psicEmail,    subject: `Turno cancelado — ${date}`, html }),
   ])
 }
