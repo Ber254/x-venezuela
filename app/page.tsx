@@ -28,7 +28,7 @@ export default function Home() {
       if (err) throw err
       setSent(true)
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Error al enviar el correo')
+      setError(err instanceof Error ? err.message : JSON.stringify(err))
     } finally {
       setLoading(false)
     }
