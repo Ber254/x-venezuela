@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 const PUBLIC_PATHS = ['/', '/login', '/acceso-profesional', '/api/auth', '/api/slots', '/confirmar-turno']
 
 function clean(s: string | undefined) {
-  return (s ?? '').replace(/^﻿/, '').replace(/[^\x00-\xFF]/g, '').trim()
+  return (s ?? '').replace(/[﻿​­]/g, '').replace(/[^\x20-\xFF]/g, '').trim()
 }
 
 export async function middleware(request: NextRequest) {

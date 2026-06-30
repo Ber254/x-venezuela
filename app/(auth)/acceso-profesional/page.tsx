@@ -20,7 +20,7 @@ export default function AccesoProfesionalPage() {
     try {
       const { error: err } = await supabase.auth.signInWithPassword({ email, password })
       if (err) throw err
-      router.push('/calendario')
+      window.location.href = '/calendario'
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Credenciales incorrectas')
     } finally {
