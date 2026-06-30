@@ -25,10 +25,13 @@ export default function Home() {
           data: { full_name: name || email.split('@')[0], role: 'user' },
         },
       })
-      if (err) throw err
+      if (err) {
+        setError(err.message || err.name || 'Error al enviar el correo')
+        return
+      }
       setSent(true)
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : JSON.stringify(err))
+      setError(err instanceof Error ? err.message : 'Error inesperado')
     } finally {
       setLoading(false)
     }
